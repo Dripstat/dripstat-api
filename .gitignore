@@ -3,3 +3,5 @@ build/
 out/
 *.iml
 .idea/
+gradle.properties
+key.gpg
