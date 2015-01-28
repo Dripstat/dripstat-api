@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 public @interface TxnSegment
 {
     /**
-     * can contain only alphabets and digits
+     * @return Segment name. Can contain only alphabets and digits
      */
     String value() default "";
 }
