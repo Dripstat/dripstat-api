@@ -6,7 +6,7 @@ sourceCompatibility = 1.6
 
 group = "com.dripstat"
 archivesBaseName = "dripstat-api"
-version = "2.0.1"
+version = "2.1.0"
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.2.1'
@@ -18,8 +18,8 @@ repositories {
 
 dependencies {
 	testCompile group: 'junit', name: 'junit', version: '4.11'
+	compile files('F:\\code\\apm-agent\\build\\libs\\dripstat.jar')
 }
-
 
 task javadocJar(type: Jar) {
 	classifier = 'javadoc'
