@@ -26,4 +26,12 @@ public class DripStat
         }
     }
 
+    public static void ignoreCurrentTransaction()
+    {
+        if (agentActive)
+        {
+            InstrumentationCode.api_ignoreTxn();
+        }
+    }
+
 }

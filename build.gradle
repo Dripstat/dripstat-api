@@ -6,7 +6,7 @@ sourceCompatibility = 1.6
 
 group = "com.dripstat"
 archivesBaseName = "dripstat-api"
-version = "2.1.0"
+version = "2.1.1"
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.2.1'
@@ -82,3 +82,6 @@ uploadArchives {
 		}
 	}
 }
+
+println ossrhPassword
+println ossrhUsername
