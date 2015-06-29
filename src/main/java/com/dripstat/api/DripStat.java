@@ -34,4 +34,12 @@ public class DripStat
         }
     }
 
+    public static void setException(Throwable e)
+    {
+        if (agentActive)
+        {
+            InstrumentationCode.api_setException(e);
+        }
+    }
+
 }
