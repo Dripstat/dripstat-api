@@ -1,6 +1,7 @@
 package com.dripstat.api;
 
 import java.com.chronon.apm.instrument.InstrumentationCode;
+import java.util.Map;
 
 /**
  * @author Prashant Deva
@@ -39,6 +40,14 @@ public class DripStat
         if (agentActive)
         {
             InstrumentationCode.api_setException(e);
+        }
+    }
+
+    public static void setException(Throwable e, Map<String,String> customParms)
+    {
+        if (agentActive)
+        {
+            InstrumentationCode.api_setException(e,customParms);
         }
     }
 
