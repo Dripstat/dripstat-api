@@ -51,4 +51,24 @@ public class DripStat
         }
     }
 
+    /**
+     * Custom attributes for the current transaction in progress.
+     * These will be visible in the Transaction Traces.
+     *
+     * Requires DripStat Agent 7.2.4 or higher.
+     *
+     *
+     * @param attributes Can have a maximum of 25 entries.
+     * Each key/value cannot be longer than 255 characters.
+     *
+     *
+     */
+    public static void setCurrentTransactionAttributes(Map<String,String> attributes)
+    {
+        if (agentActive)
+        {
+            InstrumentationCode.api_setTxnAttributes(attributes);
+        }
+    }
+
 }
