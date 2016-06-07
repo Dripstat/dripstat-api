@@ -61,7 +61,7 @@ public class DripStat
     {
         if(agentActive)
         {
-            InstrumentationCode.api_hasActiveTxn();
+            return InstrumentationCode.api_hasActiveTxn();
         }
 
         return false;
