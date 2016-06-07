@@ -52,8 +52,8 @@ public class DripStat
     }
 
     /**
-     * @return true is a DripStat transaction is currently active in the context of calling method.<br/>
-     * Returns false on asynchronous segments<br/>
+     * @return true is a DripStat transaction is currently active in the context of calling method.<br>
+     * Returns false on asynchronous segments<br>
      *
      * Requires DripStat Agent 8.0.6 or higher.
      */
