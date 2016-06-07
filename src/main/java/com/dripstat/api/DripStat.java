@@ -52,6 +52,22 @@ public class DripStat
     }
 
     /**
+     * @return true is a DripStat transaction is currently active in the context of calling method.<br/>
+     * Returns false on asynchronous segments<br/>
+     *
+     * Requires DripStat Agent 8.0.6 or higher.
+     */
+    public static boolean isTxnActive()
+    {
+        if(agentActive)
+        {
+            InstrumentationCode.api_hasActiveTxn();
+        }
+
+        return false;
+    }
+
+    /**
      * Custom attributes for the current transaction in progress.
      * These will be visible in the Transaction Traces.
      *
