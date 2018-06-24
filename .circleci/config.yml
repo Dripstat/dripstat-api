@@ -34,14 +34,14 @@ workflows:
     - build-plain:
        filters:
          branches:
-          only: nightly
+          ignore: master
 
   publish-local:
      jobs:
      - build-publish-local:
         filters:
           branches:
-           only: develop
+           ignore: master
 
   publish-prod-central:
        jobs:
