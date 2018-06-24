@@ -34,7 +34,7 @@ workflows:
     - build-plain:
        filters:
           branches:
-          only: /.*/
+            only: /.*/
 
   publish-local:
      jobs:
