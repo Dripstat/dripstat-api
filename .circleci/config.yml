@@ -27,21 +27,21 @@ defaults: &defaults
 
 version: 2
 
-workflows:
-  version: 2
-  build-only:
-    jobs:
-    - build-plain
-       filters:
-         branches:
-          only: nightly
-
-  publish-local:
-     jobs:
-     - build-publish-local
-        filters:
-          branches:
-           only: develop
+#workflows:
+#  version: 2
+#  build-only:
+#    jobs:
+#    - build-plain
+#       filters:
+#         branches:
+#          only: nightly
+#
+#  publish-local:
+#     jobs:
+#     - build-publish-local
+#        filters:
+#          branches:
+#           only: develop
 
 jobs:
   build:
@@ -57,18 +57,18 @@ jobs:
 
       - save_cache: *save-gradle-cache
 
-  build-publish-local:
-      <<: *defaults
-      steps:
-        - checkout
-        - restore_cache: *restore-gradle-cache
-        - run:
-           environment: *gradle-env
-           command: |
-             chmod +x ./gradlew
-             ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
-
-        - save_cache: *save-gradle-cache
+#  build-publish-local:
+#      <<: *defaults
+#      steps:
+#        - checkout
+#        - restore_cache: *restore-gradle-cache
+#        - run:
+#           environment: *gradle-env
+#           command: |
+#             chmod +x ./gradlew
+#             ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
+#
+#        - save_cache: *save-gradle-cache
 
 
 
