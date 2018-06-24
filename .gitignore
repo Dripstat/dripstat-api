@@ -5,4 +5,4 @@ out/
 .idea/
 gradle.properties
 key.gpg
-/bin/
+bin/
