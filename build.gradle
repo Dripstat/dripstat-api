@@ -10,7 +10,7 @@ version = "2.1.7"
 
 wrapper {
 	distributionType = Wrapper.DistributionType.ALL
-	gradleVersion = '4.8'
+	gradleVersion = '4.8.1'
 }
 
 repositories {
