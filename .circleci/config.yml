@@ -44,7 +44,7 @@ workflows:
            only: develop
 
 jobs:
-  build-plain:
+  build:
     <<: *defaults
     steps:
       - checkout
