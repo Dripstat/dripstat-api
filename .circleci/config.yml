@@ -49,6 +49,8 @@ workflows:
           filters:
             tags:
               only: /^v.*/
+            branches:
+              ignore: /.*/
 
 jobs:
   build-plain:
