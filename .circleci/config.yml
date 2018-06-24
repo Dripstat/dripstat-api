@@ -32,9 +32,6 @@ workflows:
   build-only:
     jobs:
     - build-plain:
-       filters:
-         branches:
-          ignore: master
 
   publish-local:
      jobs:
