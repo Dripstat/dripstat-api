@@ -27,6 +27,22 @@ defaults: &defaults
 
 version: 2
 
+workflows:
+ version: 2
+ build-only:
+  jobs:
+    - build-plain
+       filters:
+        branches:
+          only: nightly
+
+ publish-local:
+   jobs:
+     - build-publish-local
+        filters:
+         branches:
+           only: develop
+
 jobs:
   build-plain:
     <<: *defaults
@@ -55,18 +71,3 @@ jobs:
         - save_cache: *save-gradle-cache
 
 
-workflows:
- version: 2
- build-only:
-  jobs:
-    - build-plain
-       filters:
-        branches:
-          only: nightly
-
- publish-local:
-   jobs:
-     - build-publish-local
-        filters:
-         branches:
-           only: develop
