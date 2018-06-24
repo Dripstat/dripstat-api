@@ -28,19 +28,19 @@ defaults: &defaults
 version: 2
 
 workflows:
- version: 2
- build-only:
-  jobs:
+  version: 2
+  build-only:
+    jobs:
     - build-plain
        filters:
-        branches:
+         branches:
           only: nightly
 
- publish-local:
-   jobs:
+  publish-local:
+     jobs:
      - build-publish-local
         filters:
-         branches:
+          branches:
            only: develop
 
 jobs:
