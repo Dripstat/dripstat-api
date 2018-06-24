@@ -10,6 +10,9 @@ aliases:
       - ~/.gradle
     key: v1-dependencies-{{ checksum "build.gradle" }}
 
+  - &gradle-env
+    GRADLE_OPTS: -Dorg.gradle.daemon=false
+
 defaults: &defaults
   working_directory: ~/repo
   docker:
@@ -31,8 +34,7 @@ jobs:
       - checkout
       - restore_cache: *restore-gradle-cache
       - run:
-         environment:
-           GRADLE_OPTS: -Dorg.gradle.daemon=false
+         environment: *gradle-env
          command: |
            chmod +x ./gradlew
            ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
