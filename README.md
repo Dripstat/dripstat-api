@@ -3,7 +3,7 @@ dripstat-api
 
 Annotation for use with DripStat agent
 
-###Maven dependency
+**Maven dependency**
 
 ```
 <dependency>
