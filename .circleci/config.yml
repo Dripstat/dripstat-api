@@ -43,6 +43,13 @@ workflows:
           branches:
            only: develop
 
+  publish-prod-central:
+       jobs:
+       - build-publish-local:
+          filters:
+            branches:
+             only: master
+
 jobs:
   build-plain:
     <<: *defaults
@@ -69,6 +76,19 @@ jobs:
              ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
 
         - save_cache: *save-gradle-cache
+
+  build-publish-maven-central:
+        <<: *defaults
+        steps:
+          - checkout
+          - restore_cache: *restore-gradle-cache
+          - run:
+             environment: *gradle-env
+             command: |
+               chmod +x ./gradlew
+               ./gradlew publish closeAndReleaseRepository -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASS -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
+
+          - save_cache: *save-gradle-cache
 
 
 
