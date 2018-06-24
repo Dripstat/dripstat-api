@@ -21,6 +21,9 @@ jobs:
           - v1-dependencies-
 
       - run:
+         environment:
+           GRADLE_OPTS: -Dorg.gradle.daemon=false
+
          command: |
            chmod +x ./gradlew
            ./gradlew build
