@@ -29,22 +29,22 @@ version: 2
 
 workflows:
   version: 2
-  dev:
+  build-only:
     jobs:
-    - build:
+    - build-plain:
        filters:
          branches:
           only: nightly
-#
-#  publish-local:
-#     jobs:
-#     - build-publish-local
-#        filters:
-#          branches:
-#           only: develop
+
+  publish-local:
+     jobs:
+     - build-publish-local:
+        filters:
+          branches:
+           only: develop
 
 jobs:
-  build:
+  build-plain:
     <<: *defaults
     steps:
       - checkout
