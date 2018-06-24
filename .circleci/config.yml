@@ -1,3 +1,15 @@
+aliases:
+  - &restore-gradle-cache
+    keys:
+      - v1-dependencies-{{ checksum "build.gradle" }}
+      # fallback to using the latest cache if no exact match is found
+      - v1-dependencies-
+
+  - &save-gradle-cache
+    paths:
+      - ~/.gradle
+    key: v1-dependencies-{{ checksum "build.gradle" }}
+
 defaults: &defaults
   working_directory: ~/repo
   docker:
@@ -17,22 +29,13 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
+      - restore_cache: *restore-gradle-cache
       - run:
          environment:
            GRADLE_OPTS: -Dorg.gradle.daemon=false
-
          command: |
            chmod +x ./gradlew
            ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
 
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+      - save_cache: *save-gradle-cache
+
