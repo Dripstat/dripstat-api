@@ -31,7 +31,7 @@ workflows:
   version: 2
   dev:
     jobs:
-    - build
+    - build:
        filters:
          branches:
           only: nightly
