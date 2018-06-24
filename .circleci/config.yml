@@ -29,7 +29,7 @@ jobs:
 
          command: |
            chmod +x ./gradlew
-           ./gradlew build
+           ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
 
       - save_cache:
           paths:
