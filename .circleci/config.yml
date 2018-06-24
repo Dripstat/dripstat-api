@@ -27,14 +27,14 @@ defaults: &defaults
 
 version: 2
 
-#workflows:
-#  version: 2
-#  build-only:
-#    jobs:
-#    - build-plain
-#       filters:
-#         branches:
-#          only: nightly
+workflows:
+  version: 2
+  dev:
+    jobs:
+    - build
+       filters:
+         branches:
+          only: nightly
 #
 #  publish-local:
 #     jobs:
