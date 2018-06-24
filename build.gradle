@@ -8,7 +8,8 @@ group = "com.dripstat"
 archivesBaseName = "dripstat-api"
 version = "2.1.7"
 
-task wrapper(type: Wrapper) {
+wrapper {
+	distributionType = Wrapper.DistributionType.ALL
 	gradleVersion = '4.8'
 }
 
