@@ -28,7 +28,7 @@ defaults: &defaults
 version: 2
 
 jobs:
-  dev-build:
+  build:
     branches:
      only:
       - newbuild
