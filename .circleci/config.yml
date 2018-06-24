@@ -44,3 +44,19 @@ jobs:
 
       - save_cache: *save-gradle-cache
 
+  build-publish:
+      branches:
+       only:
+        - develop
+      <<: *defaults
+      steps:
+        - checkout
+        - restore_cache: *restore-gradle-cache
+        - run:
+           environment: *gradle-env
+           command: |
+             chmod +x ./gradlew
+             ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
+
+        - save_cache: *save-gradle-cache
+
