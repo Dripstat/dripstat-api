@@ -49,6 +49,8 @@ workflows:
           filters:
             branches:
              only: master
+            tags:
+              only: /^v.*/
 
 jobs:
   build-plain:
@@ -86,7 +88,8 @@ jobs:
              environment: *gradle-env
              command: |
                chmod +x ./gradlew
-               ./gradlew publish closeAndReleaseRepository -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASS -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
+               echo "hi"
+#               ./gradlew publish closeAndReleaseRepository -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASS -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
 
           - save_cache: *save-gradle-cache
 
