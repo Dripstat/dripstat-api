@@ -28,7 +28,10 @@ defaults: &defaults
 version: 2
 
 jobs:
-  build:
+  dev-build:
+    branches:
+     only:
+      - newbuild
     <<: *defaults
     steps:
       - checkout
