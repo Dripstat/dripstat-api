@@ -45,10 +45,8 @@ workflows:
 
   publish-prod-central:
        jobs:
-       - build-publish-local:
+       - build-publish-maven-central:
           filters:
-            branches:
-             only: master
             tags:
               only: /^v.*/
 
