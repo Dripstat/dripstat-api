@@ -16,7 +16,7 @@ aliases:
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: dripstat/internal-java-mckey:latest
+    - image: dripstat/internal-java-mckey:maven-3.6.1
       auth:
         username: $DOCKER_HUB_USERNAME
         password: $DOCKER_HUB_PASS
@@ -36,6 +36,13 @@ workflows:
           branches:
             only: /.*/
 
+  maven-central-publish:
+    jobs:
+      - maven-publish:
+          filters:
+            branches:
+              only: maven
+
   publish-local:
      jobs:
      - build-publish-local:
@@ -53,6 +60,14 @@ workflows:
               ignore: /.*/
 
 jobs:
+  maven-publish:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          command: |
+            maven --batch-mode deploy
+
   build-plain:
     <<: *defaults
     steps:
