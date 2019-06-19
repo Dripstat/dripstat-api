@@ -111,6 +111,10 @@
                             <goal>sign</goal>
                         </goals>
                         <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
                             <keyname>${env.SIGN_KEY_ID}</keyname>
                             <passphrase>${env.SIGN_PASS}</passphrase>
                             <secretKeyring>${env.SIGN_RINGFILE}</secretKeyring>
