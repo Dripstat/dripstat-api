@@ -79,6 +79,7 @@ jobs:
       - restore_cache: *restore-maven-cache
       - run:
           command: |
+            which gpg
             mvn --batch-mode deploy
       - save_cache: *save-maven-cache
 
