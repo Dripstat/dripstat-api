@@ -79,35 +79,36 @@ jobs:
       - restore_cache: *restore-maven-cache
       - run:
           command: |
+            echo $SIGN_RINGFILE
             apt-get update && apt-get install -y gpg
             mvn --batch-mode deploy
       - save_cache: *save-maven-cache
 
-  build-plain:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache: *restore-gradle-cache
-      - run:
-         environment: *gradle-env
-         command: |
-           chmod +x ./gradlew
-           ./gradlew build
+#  build-plain:
+#    <<: *defaults
+#    steps:
+#      - checkout
+#      - restore_cache: *restore-gradle-cache
+#      - run:
+#         environment: *gradle-env
+#         command: |
+#           chmod +x ./gradlew
+#           ./gradlew build
+#
+#      - save_cache: *save-gradle-cache
 
-      - save_cache: *save-gradle-cache
-
-  build-publish-local:
-      <<: *defaults
-      steps:
-        - checkout
-        - restore_cache: *restore-gradle-cache
-        - run:
-           environment: *gradle-env
-           command: |
-             chmod +x ./gradlew
-             ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
-
-        - save_cache: *save-gradle-cache
+#  build-publish-local:
+#      <<: *defaults
+#      steps:
+#        - checkout
+#        - restore_cache: *restore-gradle-cache
+#        - run:
+#           environment: *gradle-env
+#           command: |
+#             chmod +x ./gradlew
+#             ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
+#
+#        - save_cache: *save-gradle-cache
 
   build-publish-maven-central:
         <<: *defaults
