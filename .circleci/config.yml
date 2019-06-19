@@ -66,7 +66,7 @@ jobs:
       - checkout
       - run:
           command: |
-            maven --batch-mode deploy
+            mvn --batch-mode deploy
 
   build-plain:
     <<: *defaults
