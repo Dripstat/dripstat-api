@@ -1,18 +1,4 @@
 aliases:
-  - &restore-gradle-cache
-    keys:
-      - v1-dependencies-{{ checksum "build.gradle" }}
-      # fallback to using the latest cache if no exact match is found
-      - v1-dependencies-
-
-  - &save-gradle-cache
-    paths:
-      - ~/.gradle
-    key: v1-dependencies-{{ checksum "build.gradle" }}
-
-  - &gradle-env
-    GRADLE_OPTS: -Dorg.gradle.daemon=false
-
   - &restore-maven-cache
     keys:
         # when lock file changes, use increasingly general patterns to restore cache
@@ -42,35 +28,19 @@ version: 2
 workflows:
   version: 2
 
-#  build-only:
-#    jobs:
-#    - build-plain:
-#       filters:
-#          branches:
-#            only: /.*/
-
   maven-central-publish:
     jobs:
       - maven-publish:
           filters:
             branches:
-              only: maven
+              only: master
 
-#  publish-local:
-#     jobs:
-#     - build-publish-local:
-#        filters:
-#          branches:
-#           ignore: master
-
-  publish-prod-central:
-       jobs:
-       - build-publish-maven-central:
+  compile:
+    jobs:
+      - compile-only:
           filters:
-            tags:
-              only: /^v.*/
             branches:
-              ignore: /.*/
+              ignore: master
 
 jobs:
   maven-publish:
@@ -84,44 +54,13 @@ jobs:
             mvn --settings maven-settings.xml --batch-mode deploy
       - save_cache: *save-maven-cache
 
-  build-plain:
+  compile-only:
     <<: *defaults
-    steps:
-      - checkout
-      - restore_cache: *restore-gradle-cache
-      - run:
-         environment: *gradle-env
-         command: |
-           chmod +x ./gradlew
-           ./gradlew build
-
-      - save_cache: *save-gradle-cache
-
-  build-publish-local:
-      <<: *defaults
-      steps:
+     steps:
         - checkout
-        - restore_cache: *restore-gradle-cache
-        - run:
-           environment: *gradle-env
-           command: |
-             chmod +x ./gradlew
-             ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
-
-        - save_cache: *save-gradle-cache
-
-  build-publish-maven-central:
-        <<: *defaults
-        steps:
-          - checkout
-          - restore_cache: *restore-gradle-cache
-          - run:
-             environment: *gradle-env
-             command: |
-               chmod +x ./gradlew
-               ./gradlew publish closeAndReleaseRepository -PnexusUsername=$NEXUS_USER -PnexusPassword=$NEXUS_PASS -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
-
-          - save_cache: *save-gradle-cache
-
-
+     - restore_cache: *restore-maven-cache
+     - run:
+          command: |
+              mvn --settings maven-settings.xml --batch-mode package
+     - save_cache: *save-maven-cache
 
