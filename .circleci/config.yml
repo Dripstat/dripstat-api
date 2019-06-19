@@ -51,7 +51,7 @@ jobs:
       - run:
           command: |
             gpg --batch --import $SIGN_RINGFILE
-            mvn --settings maven-settings.xml --batch-mode deploy
+            mvn --settings maven-settings.xml --batch-mode clean deploy
       - save_cache: *save-maven-cache
 
   compile-only:
