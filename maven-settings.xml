@@ -18,6 +18,10 @@
                 <gpg.keyname>${env.SIGN_KEY_ID}</gpg.keyname>
                 <gpg.passphrase>${env.SIGN_PASS}</gpg.passphrase>
                 <gpg.secretKeyring>${env.SIGN_RINGFILE}</gpg.secretKeyring>
+                <gpg.gpgArguments>
+                    <arg>--pinentry-mode</arg>
+                    <arg>loopback</arg>
+                </gpg.gpgArguments>
             </properties>
         </profile>
     </profiles>
