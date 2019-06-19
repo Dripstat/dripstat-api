@@ -80,8 +80,8 @@ jobs:
       - restore_cache: *restore-maven-cache
       - run:
           command: |
-            gpg --import $SIGN_RINGFILE
             apt-get update && apt-get install -y gpg
+            gpg --import $SIGN_RINGFILE
             mvn --batch-mode deploy
       - save_cache: *save-maven-cache
 
