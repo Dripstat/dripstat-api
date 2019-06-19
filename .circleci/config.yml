@@ -55,7 +55,7 @@ jobs:
       - save_cache: *save-maven-cache
 
   compile-only:
-    <<: *defaults
+     <<: *defaults
      steps:
         - checkout
      - restore_cache: *restore-maven-cache
