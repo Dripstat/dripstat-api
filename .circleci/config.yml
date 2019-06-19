@@ -41,12 +41,13 @@ version: 2
 
 workflows:
   version: 2
-  build-only:
-    jobs:
-    - build-plain:
-       filters:
-          branches:
-            only: /.*/
+
+#  build-only:
+#    jobs:
+#    - build-plain:
+#       filters:
+#          branches:
+#            only: /.*/
 
   maven-central-publish:
     jobs:
@@ -55,12 +56,12 @@ workflows:
             branches:
               only: maven
 
-  publish-local:
-     jobs:
-     - build-publish-local:
-        filters:
-          branches:
-           ignore: master
+#  publish-local:
+#     jobs:
+#     - build-publish-local:
+#        filters:
+#          branches:
+#           ignore: master
 
   publish-prod-central:
        jobs:
@@ -79,36 +80,36 @@ jobs:
       - restore_cache: *restore-maven-cache
       - run:
           command: |
-            echo $SIGN_RINGFILE
+            gpg --import $SIGN_RINGFILE
             apt-get update && apt-get install -y gpg
             mvn --batch-mode deploy
       - save_cache: *save-maven-cache
 
-#  build-plain:
-#    <<: *defaults
-#    steps:
-#      - checkout
-#      - restore_cache: *restore-gradle-cache
-#      - run:
-#         environment: *gradle-env
-#         command: |
-#           chmod +x ./gradlew
-#           ./gradlew build
-#
-#      - save_cache: *save-gradle-cache
+  build-plain:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore-gradle-cache
+      - run:
+         environment: *gradle-env
+         command: |
+           chmod +x ./gradlew
+           ./gradlew build
 
-#  build-publish-local:
-#      <<: *defaults
-#      steps:
-#        - checkout
-#        - restore_cache: *restore-gradle-cache
-#        - run:
-#           environment: *gradle-env
-#           command: |
-#             chmod +x ./gradlew
-#             ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
-#
-#        - save_cache: *save-gradle-cache
+      - save_cache: *save-gradle-cache
+
+  build-publish-local:
+      <<: *defaults
+      steps:
+        - checkout
+        - restore_cache: *restore-gradle-cache
+        - run:
+           environment: *gradle-env
+           command: |
+             chmod +x ./gradlew
+             ./gradlew publishToMavenLocal -Psigning.keyId=$SIGN_KEY_ID -Psigning.password=$SIGN_PASS -Psigning.secretKeyRingFile=$SIGN_RINGFILE
+
+        - save_cache: *save-gradle-cache
 
   build-publish-maven-central:
         <<: *defaults

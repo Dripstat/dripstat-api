@@ -113,7 +113,7 @@
                         <configuration>
                             <keyname>${env.SIGN_KEY_ID}</keyname>
                             <passphrase>${env.SIGN_PASS}</passphrase>
-                            <secretKeyring>/opt/mavenkey/maven-central-private-key.gpg</secretKeyring>
+                            <secretKeyring>${env.SIGN_RINGFILE}</secretKeyring>
                         </configuration>
                     </execution>
                 </executions>
