@@ -11,4 +11,15 @@
         </server>
     </servers>
 
+    <profiles>
+        <profile>
+            <id>sonatype-oss-release</id>
+            <properties>
+                <gpg.keyname>${env.SIGN_KEY_ID}</gpg.keyname>
+                <gpg.passphrase>${env.SIGN_PASS}</gpg.passphrase>
+                <gpg.secretKeyring>${env.SIGN_RINGFILE}</gpg.secretKeyring>
+            </properties>
+        </profile>
+    </profiles>
+
 </settings>
