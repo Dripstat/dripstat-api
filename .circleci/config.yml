@@ -13,6 +13,18 @@ aliases:
   - &gradle-env
     GRADLE_OPTS: -Dorg.gradle.daemon=false
 
+  - &restore-maven-cache
+    keys:
+        # when lock file changes, use increasingly general patterns to restore cache
+        - maven-repo-v1-{{ .Branch }}-{{ checksum "pom.xml" }}
+        - maven-repo-v1-{{ .Branch }}-
+        - maven-repo-v1-
+
+  - &save-maven-cache
+    paths:
+      - ~/.m2
+    key: maven-repo-v1-{{ .Branch }}-{{ checksum "pom.xml" }}
+
 defaults: &defaults
   working_directory: ~/repo
   docker:
@@ -64,9 +76,11 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - restore_cache: *restore-maven-cache
       - run:
           command: |
             mvn --batch-mode deploy
+      - save_cache: *save-maven-cache
 
   build-plain:
     <<: *defaults
