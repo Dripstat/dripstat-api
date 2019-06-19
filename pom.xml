@@ -6,7 +6,7 @@
 
     <groupId>com.dripstat</groupId>
     <artifactId>dripstat-api</artifactId>
-    <version>2.1.9</version>
+    <version>2.1.10-SNAPSHOT</version>
 
     <name>Dripst APM Agent API</name>
     <packaging>jar</packaging>

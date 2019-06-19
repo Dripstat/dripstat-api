@@ -9,6 +9,6 @@ Annotation for use with DripStat agent
 <dependency>
     <groupId>com.dripstat</groupId>
     <artifactId>dripstat-api</artifactId>
-    <version>2.1.8</version>
+    <version>2.1.9</version>
 </dependency>
 ```
