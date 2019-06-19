@@ -82,6 +82,7 @@ jobs:
           command: |
             apt-get update && apt-get install -y gpg
             gpg --batch --import $SIGN_RINGFILE
+            mvn --settings maven-settings.xml help:effective-settings
             mvn --settings maven-settings.xml --batch-mode deploy
       - save_cache: *save-maven-cache
 
