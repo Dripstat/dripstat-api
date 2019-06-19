@@ -58,9 +58,9 @@ jobs:
      <<: *defaults
      steps:
         - checkout
-     - restore_cache: *restore-maven-cache
-     - run:
-          command: |
+        - restore_cache: *restore-maven-cache
+        - run:
+           command: |
               mvn --settings maven-settings.xml --batch-mode package
-     - save_cache: *save-maven-cache
+        - save_cache: *save-maven-cache
 
