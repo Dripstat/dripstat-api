@@ -80,7 +80,7 @@ jobs:
       - restore_cache: *restore-maven-cache
       - run:
           command: |
-            mvn help:effective-settings
+            mvn --settings maven-settings.xml --batch-mode help:effective-settings
       - save_cache: *save-maven-cache
 
   build-plain:
