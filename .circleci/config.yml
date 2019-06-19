@@ -79,7 +79,7 @@ jobs:
       - restore_cache: *restore-maven-cache
       - run:
           command: |
-            apt-get update && apt-get install gpg
+            apt-get update && apt-get install -y gpg
             mvn --batch-mode deploy
       - save_cache: *save-maven-cache
 
